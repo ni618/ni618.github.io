@@ -1,25 +1,121 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh-tw">
 <head>
-    <title>AJAX TEST</title>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <link type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <title>NI618 TEST</title>
+
+    <!-- jQuery 3.6.1 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+    <!-- onsen -->
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+
 </head>
 <body>
-    <button class="btn"></button>
-    <pre id="log"></pre>
-    <script>
-$().ready(function () {
-    $('button').click(function () {
-        $.ajax({
-            type: "get",
-            url: "http://people.cs.nctu.edu.tw/~ymsu/cors.php"
-        })
-        .done(function( msg ) {
-            $('#log').text(msg);
+<ons-page>
+    <ons-tabbar swipeable position="bottom">
+        <ons-tab page="tab1.html" label="Tab 1" icon="ion-ios-home, material:md-home" badge="7" active></ons-tab>
+        <ons-tab page="tab2.html" label="Tab 2" icon="md-settings" active-icon="md-face"></ons-tab>
+    </ons-tabbar>
+</ons-page>
+
+<template id="tab1.html">
+    <ons-page id="Tab1">
+        <ons-toolbar>
+            <div class="left"><ons-toolbar-button onclick="prev()"><ons-icon icon="md-chevron-left"></ons-icon></ons-toolbar-button></div>
+            <div class="center" style="text-align: center;">2022 / 09 / 14 &nbsp;</div>
+            <div class="right"><ons-toolbar-button onclick="next()"><ons-icon icon="md-chevron-right"></ons-icon></ons-toolbar-button></div>
+        </ons-toolbar>
+
+        <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel">
+            <ons-carousel-item>
+                <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
+                    BLUE
+                </div>
+
+                <ons-row style="position: absolute; bottom: 0; left: 0;">
+                    <ons-col>
+                        <ons-list-header>快速記帳</ons-list-header>
+                        <ons-list-item>
+                            <div class="left"><ons-icon icon="md-balance-wallet" size="3x"></ons-icon></div>
+                            <div class="center">錢包</div>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <div class="left"><ons-icon icon="md-card" size="3x"></ons-icon></div>
+                            <div class="center">一卡通</div>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <div class="left"><ons-icon icon="fa-credit-card" size="2x"></ons-icon></div>
+                            <div class="center">信用卡</div>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <div class="left"><ons-icon icon="fa-cc-visa" size="2x"></ons-icon></div>
+                            <div class="center">信用卡</div>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <div class="left"><ons-icon icon="fa-id-card" size="2x"></ons-icon></div>
+                            <div class="center">信用卡</div>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <div class="left"><ons-icon icon="fa-id-card-alt" size="2x"></ons-icon></div>
+                            <div class="center">信用卡</div>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <div class="left"><ons-icon icon="fa-ticket-alt" size="2x"></ons-icon></div>
+                            <div class="center">信用卡</div>
+                        </ons-list-item>
+                    </ons-col>
+                </ons-row>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #373B44;">
+                <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
+                    DARK
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #D38312;">
+                <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
+                    ORANGE
+                </div>
+            </ons-carousel-item>
+        </ons-carousel>
+    </ons-page>
+</template>
+
+<template id="tab2.html">
+    <ons-page id="Tab2">
+        <ons-row vertical-align="bottom">
+            <ons-col width="50px"><ons-icon icon="fa-twitter"></ons-icon></ons-col>
+            <ons-col>Text</ons-col>
+        </ons-row>
+    </ons-page>
+</template>
+
+
+<script>
+    document.addEventListener('prechange', function(event) {
+        document.querySelector('ons-toolbar .center')
+            .innerHTML = event.tabItem.getAttribute('label');
+    });
+</script>
+<script>
+    var prev = function() {
+        var carousel = document.getElementById('carousel');
+        carousel.prev();
+    };
+
+    var next = function() {
+        var carousel = document.getElementById('carousel');
+        carousel.next();
+    };
+
+    ons.ready(function() {
+        var carousel = document.addEventListener('postchange', function(event) {
+            console.log('Changed to ' + event.activeIndex)
         });
     });
-})
-    </script>
+
+    ons.bootstrap();
+</script>
 </body>
 </html>
